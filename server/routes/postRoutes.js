@@ -14,8 +14,8 @@ cloudinary.config({
 });
 
 router.route("/").get(async (req, res) => {
-  // Get all the posts from the database.
   try {
+    // Get all the posts from the database.
     const posts = await Post.find({});
 
     res.status(200).json({ success: true, data: posts });
@@ -28,7 +28,6 @@ router.route("/").get(async (req, res) => {
 });
 
 router.route("/").post(async (req, res) => {
-  alert(process.env.CLOUDINARY_CLOUD_NAME);
   // Create a post that stores the url of the photo in the database,
   // after first uploading the photo to cloudinary.
   // This avoids storing the actual photo in the database to save space.
@@ -43,6 +42,9 @@ router.route("/").post(async (req, res) => {
       photo: photoUrl.url,
     });
 
+    // Save the new post in the database.
+    await newPost.save();
+
     res.status(201).json({ success: true, data: newPost });
   } catch (error) {
     res.status(500).json({
@@ -51,31 +53,5 @@ router.route("/").post(async (req, res) => {
     });
   }
 });
-
-// router.route('/').get(async (req, res) => {
-//   try {
-//     const posts = await Post.find({});
-//     res.status(200).json({ success: true, data: posts, message: process.env.CLOUDINARY_API_KEY });
-//   } catch (err) {
-//     res.status(500).json({ success: false, message: 'Fetching posts failed, please try again' });
-//   }
-// });
-
-// router.route('/').post(async (req, res) => {
-//   try {
-//     const { name, prompt, photo } = req.body;
-//     const photoUrl = await cloudinary.uploader.upload(photo);
-
-//     const newPost = await Post.create({
-//       name,
-//       prompt,
-//       photo: photoUrl.url,
-//     });
-
-//     res.status(200).json({ success: true, data: newPost });
-//   } catch (err) {
-//     res.status(500).json({ success: false, message: 'Unable to create a post, please try again' });
-//   }
-// });
 
 export default router;
