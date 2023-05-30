@@ -1,7 +1,6 @@
 import { download } from "../assets";
 import { downloadImage } from "../utils";
-// import AvatarInitial from "./AvatarInitial";
-import { AvatarInitial } from "../components";
+import { UserInfo } from "../components";
 
 const Card = ({ _id, name, prompt, photo }) => (
   <div className="rounded-xl group relative shadow-card hover:shadow-cardhover card">
@@ -20,10 +19,11 @@ const Card = ({ _id, name, prompt, photo }) => (
           </div>
           <p className="text-white text-sm">{name}</p>
         </div> */}
-        <div className="flex items-center gap-2">
-          <AvatarInitial name={name} />
+        {/* <div className="flex items-center gap-2">
+          <UserInitial name={name} />
           <p className="text-white text-sm">{name}</p>
-        </div>
+        </div> */}
+        <UserInfo name={name} />
         <button
           type="button"
           onClick={() => downloadImage(_id, photo)}

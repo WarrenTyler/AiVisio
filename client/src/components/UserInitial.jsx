@@ -1,4 +1,4 @@
-const AvatarInitial = ({ name }) => {
+const UserInitial = ({ name }) => {
   const initial = name ? name[0] : "";
 
   return (
@@ -8,4 +8,4 @@ const AvatarInitial = ({ name }) => {
   );
 };
 
-export default AvatarInitial;
+export default UserInitial;
